@@ -15,6 +15,11 @@ defineProps<{ imgUrl:string}>()
 .KV{
   width: 100%;
   aspect-ratio: 16/5;
+  max-height: 375px;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 #banner{
   width: 100%;

@@ -6,6 +6,7 @@ onMounted(()=>{
   draw()
 })
 const imgUrl=ref('https://picsum.photos/id/43/1920/600')
+const previewImage = ref<string | null >(null);
 
 const isCanvasElement = (element: HTMLElement | null): element is HTMLCanvasElement => {
   return element instanceof HTMLCanvasElement;
@@ -34,11 +35,31 @@ const changeImage = () => {
     imgUrl.value = `https://picsum.photos/id/${id}/1920/600`
       draw();
 };
+const uploadImage = (e: Event) => {
+      const target = e.target as HTMLInputElement;
+      if (target.files && target.files[0]) {
+        const image = target.files[0];
+        const reader = new FileReader();
+        reader.readAsDataURL(image);
+        reader.onload = (e) => {
+          if (e.target && typeof e.target.result === 'string') {
+            previewImage.value = e.target.result;
+            console.log(previewImage.value);
+          }else{
+            previewImage.value=""
+          }
+        };
+      }
+}
 </script>
 
 <template>
   <button class="upload_btn" @click="changeImage">Change Image</button>
   <KV :imgUrl="imgUrl"/>
+  <div>
+      <img class="uploading-image" :src="previewImage"/>
+      <input type="file" accept="image/jpeg" @change=uploadImage>
+   </div>
 </template>
 
 <style scoped>
