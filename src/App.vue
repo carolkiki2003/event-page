@@ -6,7 +6,7 @@ onMounted(()=>{
   draw()
 })
 const imgUrl=ref('https://picsum.photos/id/43/1920/600')
-const previewImage = ref<string | null >(null);
+const previewImage = ref<string>('');
 
 const isCanvasElement = (element: HTMLElement | null): element is HTMLCanvasElement => {
   return element instanceof HTMLCanvasElement;
