@@ -11,6 +11,9 @@
 
   /* variables */
   --content-height:600px;
+  --background-primary:rgb(var(--red),var(--green),var(--blue));
+  --accessible-color:calc((((var(--red) * 299 + var(--green) * 587 + var(--blue) * 114) / 1000) - 128) * -1000);
+  --text-primary:rgb(var(--accessible-color),var(--accessible-color),var(--accessible-color));
 }
 body {
   margin: 0;
@@ -20,6 +23,7 @@ body {
 
 #app{
   background-color: var(--background-primary);
+  color:var(--text-primary);
   width:100%;
   height:100dvh;
 }

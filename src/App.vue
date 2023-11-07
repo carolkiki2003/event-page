@@ -1,9 +1,11 @@
 <script setup lang="ts">
-import KV from './components/KV_Random.vue'
+import KV from './components/KV.vue'
 
 const setRootProperties = (r:number,g:number,b:number)=>{
   const root=document.documentElement
-  root.style.setProperty('--background-primary',`rgb(${r},${g},${b})`);
+  root.style.setProperty('--red',`${r}`);
+  root.style.setProperty('--green',`${g}`);
+  root.style.setProperty('--blue',`${b}`);
 }
 
 </script>

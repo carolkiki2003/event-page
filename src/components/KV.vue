@@ -46,7 +46,10 @@ onMounted(()=>{
 <template>
   <div class="KV">
     <img id="banner" :src="imgUrl" crossOrigin/>
-    <input class="upload_btn" type="file" accept="image/jpeg" @change=uploadImage>
+    <div class="upload_btn" :class="{'fixed':imgUrl}">
+      <input type="file" accept="image/jpeg" @change=uploadImage>
+      <span>圖片格式:1920 x 600px</span>
+    </div>
     <canvas id="source" width="1920" height="600"></canvas>
   </div>
 </template>
@@ -55,8 +58,20 @@ onMounted(()=>{
 
 .upload_btn{
   position: fixed;
-  top:10px;
-  left:10px;
+  top:300px;
+  left:50%;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  transition: all .3s;
+  &.fixed{
+    top:10px;
+    left:10px;
+  }
+  & span{
+    font-size: 12px;
+    margin-top: 10px;
+  }
 }
 .KV{
   width: 100%;
@@ -65,6 +80,7 @@ onMounted(()=>{
   display: flex;
   justify-content: center;
   align-items: center;
+  background-color: antiquewhite;
 }
 #banner{
   object-fit: cover;
