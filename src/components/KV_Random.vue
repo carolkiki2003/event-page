@@ -3,25 +3,15 @@ import { ref,onMounted } from 'vue';
 
 const emit = defineEmits<{(e:'setRootProperties',r:number,g:number,b:number):void}>()
 
-const imgUrl=ref('')
+const imgUrl=ref('https://picsum.photos/id/43/1920/600')
 const isCanvasElement = (element: HTMLElement | null): element is HTMLCanvasElement => {
   return element instanceof HTMLCanvasElement;
 }
-const uploadImage = (e: Event) => {
-  const target = e.target as HTMLInputElement;
-  if (target.files && target.files[0]) {
-    const image = target.files[0];
-    const reader = new FileReader();
-    reader.readAsDataURL(image);
-    reader.onload = (e) => {
-      if (e.target && typeof e.target.result === 'string') {
-        imgUrl.value = e.target.result;
-      }else{
-        imgUrl.value=""
-      }
-    };
-  }
-}
+const changeImage = () => {
+    let id =Math.floor(Math.random() * 501)
+    imgUrl.value = `https://picsum.photos/id/${id}/1920/600`
+      draw();
+};
 const draw = ()=>{
   const element = document.getElementById('source')
   if (isCanvasElement(element)) {
@@ -30,9 +20,9 @@ const draw = ()=>{
     const img = document.getElementById('banner')
     if (canvasElement && ctx && img instanceof HTMLImageElement ){
       img.onload = () => {
-        ctx.drawImage(img,0, 0)
-        let imgData = (ctx.getImageData(0, 590, 1920, 10)).data
-        emit('setRootProperties', imgData[0],imgData[1],imgData[2]) 
+          ctx.drawImage(img,0, 0)
+          let imgData = (ctx.getImageData(0, 590, 1920, 10)).data
+          emit('setRootProperties', imgData[0],imgData[1],imgData[2])
       }
     }
   }
@@ -44,16 +34,16 @@ onMounted(()=>{
 </script>
 
 <template>
+  <button class="change_btn" @click="changeImage">Change Image</button>
   <div class="KV">
-    <img id="banner" :src="imgUrl" crossOrigin/>
-    <input class="upload_btn" type="file" accept="image/jpeg" @change=uploadImage>
+    <img id="banner" :src="imgUrl" crossOrigin>
     <canvas id="source" width="1920" height="600"></canvas>
   </div>
 </template>
 
 <style scoped>
 
-.upload_btn{
+.change_btn{
   position: fixed;
   top:10px;
   left:10px;
